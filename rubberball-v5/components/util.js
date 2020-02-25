@@ -27,7 +27,7 @@ const getLengthOfSection = (s) => {
     return Math.sqrt((s[1][0] - s[0][0]) ** 2 + (s[1][1] - s[0][1]) ** 2);
 }
 
-export class Line {
+export class LineVisual {
     constructor(vertices, color = 'black') {
         this.vertices = vertices;
         this.color = color;
@@ -46,13 +46,68 @@ export class Line {
     }
 }
 
+export class Line {
+    /*  let e = new Line(/Vector, [num, num]);
+            e.n --> /Vector
+            e.c --> [num, num]
+            e.steepness --> num
+
+        Line.intersection(/Line, /Line) --> [num, num]
+    */
+    constructor(n, P) {
+        this.n = n;
+        this.c = P;
+    }
+
+    static intersection(E, F) {
+        let [a, b, c] = E.equation;
+        let [d, e, f] = F.equation;
+        return [(c * e - f * b) / (a * e - d * b), (a * f - d * c) / (a * e - d * b)];
+    }
+
+    get equation() {
+        return [this.n.c[0], this.n.c[1], this.n.c[0] * this.c[0] + this.n.c[1] * this.c[1]];
+    }
+
+    get steepness() {
+        return this.n.c[0] / (-this.n.c[1]);
+    }
+    set steepness(n) {
+        console.log('cannot SET .steepness of /Line yet');
+    }
+}
+
 export class Vector {
+    /*  
+    create ____________________________________
+
+        /Vector = new Vector([num, num]);
+        
+    get _______________________________________
+
+        /Vector.c --> [num, num]
+        /Vector.length --> num
+        /Vector.angle ---> num
+
+    methods ___________________________________
+
+        /Vector.multiplyByNumber(num) --> /Vector
+        //TODO!!!!!!!!!
+
+    static methods ____________________________
+
+        Vector.add(/Vector, /Vector) --> /Vector
+        Vector.multiply(/Vector, /Vector) --> num 
+    */
     constructor(c) {
         this.c = c;
     }
 
     static add(a, b) {
         return new Vector([a.c[0] + b.c[0], a.c[1] + b.c[1]]);
+    }
+    static multiply(a, b) {
+        return a.c[0] * b.c[0] + a.c[1] * b.c[1];
     }
 
     get length() {

@@ -1,6 +1,6 @@
 import canvas from './canvas.js';
 import Collider, { getColliderAtCoordinates, getCollidersAtCoordinates } from './collider.js';
-import { Vector, Line, getAngle, getLengthOfSection } from './util.js';
+import { Vector, Line, LineVisual, getAngle, getLengthOfSection } from './util.js';
 import GameObject from './gameobject.js';
 import Polygon from './polygon.js';
 
@@ -105,7 +105,7 @@ export default class Platformer extends GameObject {
                     let a = new Vector([A[0] - B[0], A[1] - B[1]]);
                     let l = [[B[0] - a.multiplyByNumber(4).c[1], B[1] + a.multiplyByNumber(4).c[0]], [B[0] + a.multiplyByNumber(4).c[1], B[1] - a.multiplyByNumber(4).c[0]]];
 
-                    let line = new Line(l, 'red');
+                    let line = new LineVisual(l, 'red');
 
                     this.speed = this.speed.calculateProjectionToSection(l);
 

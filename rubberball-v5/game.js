@@ -1,7 +1,7 @@
 import Collider from './components/collider.js';
 import Platformer from './components/platformer.js';
 import { GAME } from './components/gameobject.js';
-import { Line } from './components/util.js';
+import { Line, Vector } from './components/util.js';
 
 window.onload = () => {
 
@@ -12,6 +12,12 @@ window.onload = () => {
 
     GAME.start();
 
+    let e = new Line(new Vector([3, 6]), [1, 1 / 6]);
+    let f = new Line(new Vector([1, (-3)]), [1, 1]);
+    // let e = new Line(new Vector([3, 6]), [1, 1]);
+    // let f = new Line(new Vector([1, 2]), [0, 0]);
+    console.log(Line.intersection(e, f));
+    console.log(f.steepness);
 
     let keys = {
         left: false,
